@@ -1,0 +1,42 @@
+-
+  before_text: Go to a pub
+  after_text: Cool party
+  conds:
+    -
+      field: money
+      operator: '>'
+      value: 10
+  effects:
+    -
+      field: money
+      operator: '-'
+      value: 10
+    -
+      field: mana
+      operator: '+'
+      value: 10
+    -
+      field: fun
+      operator: '+'
+      value: 20
+-
+  before_text: Working
+  after_text: Office work is not for Valery
+  conds:
+    -
+      field: fatigue
+      operator: '<'
+      value: 20
+    -
+      field: mana
+      operator: '<'
+      value: 10
+  effects:
+    -
+      field: money
+      operator: '+'
+      value: 100
+    -
+      field: fun
+      operator: '-'
+      value: 1
