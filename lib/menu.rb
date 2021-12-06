@@ -49,9 +49,10 @@ class Menu
       option = options.find { |option| option == input }
       puts 'rows'
       option
-    elsif return @menu_rows[:action].to_s if input.to_s == @menu_rows[:action].to_s
-
+    elsif if input.to_s == @menu_rows[:action].to_s
+      return @menu_rows[:action].to_s 
       nil
+      end
     end
   end
 
