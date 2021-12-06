@@ -15,6 +15,7 @@ module AppStates
             start_menu.render_vertical
             io_adapter.write '---' * 14
             utils_menu.render_exit_menu
+
         end
         
         def run
@@ -41,7 +42,7 @@ module AppStates
         end
 
         def wrong_state
-            io_adapter.clear
+            #io_adapter.clear
             io_adapter.write "Try choosing correct options!!"
             @context.repeat_state
         end

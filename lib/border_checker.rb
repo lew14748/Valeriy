@@ -1,6 +1,5 @@
 
 class BorderChecker
-    #attr_accessor :lower_border, :upper_border
     
     def initialize lower_border, upper_border
     @lower_border = lower_border
