@@ -5,7 +5,6 @@ module AppStates
             context.transition_to_state AppStates::Welcome.new
         end
 
-<<<<<<< HEAD
         def find_save_folder
             if File.directory?("saves")
                 find_saves
