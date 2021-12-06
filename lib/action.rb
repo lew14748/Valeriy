@@ -27,9 +27,9 @@ class Action
     def change_value value_before, operator, value
         case operator
         when '+'
-            value_after = value_before + value
+            value_before + value
         when '-'
-            value_after = value_before - value
+            value_before - value
         end
     end
 
