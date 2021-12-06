@@ -13,7 +13,7 @@ class Menu
   def initialise_custom_main_menu  row
     options = MAIN_MENU_OPTIONS.clone
     @menu_rows = options.find { |option| row.to_s.include? option[:action].to_s}
-    @menu_rows
+
   end
 
   def initialise_main_menu
@@ -42,13 +42,23 @@ class Menu
   end
 
 
+def handle_start_menu_input 
+
+end
   def handle_main_menu_input(input)
-    options = MAIN_MENU_OPTIONS.map { |option| option[:action] }
-    option = options.find { |option| option == input }
-    if option == nil
+    option = nil
+    puts @menu_row
+    if @menu_rows.kind_of?(Array)
+      options = @menu_rows.select { |option| option[:action] }
+      option = options.find { |option| option == input }
+      puts 'rows'
+      return option
+    elsif
+      if input.to_s == @menu_rows[:action].to_s
+        return @menu_rows[:action].to_s
+      end
       return nil
     end
-    option
   end
 
   def handle_game_menu_input number
@@ -56,7 +66,6 @@ class Menu
       return nil
     end
      option = @menu_rows.find { |menu_row| menu_row[:command] == number}  
-     puts option[:action].to_s
      return option[:action]
   end
 
