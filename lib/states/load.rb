@@ -7,7 +7,10 @@ module AppStates
       context.transition_to_state AppStates::Welcome.new
     end
 
-    def load_save(save_number); end
+    def load_save(save_number)
+      @load_file = @saves[save_number]
+      #insert to valera stats from file
+    end
 
     def get_number_of_save
       num = io_adapter.read
