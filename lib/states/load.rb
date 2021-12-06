@@ -51,12 +51,10 @@ module AppStates
 
 
         def show_saves 
-            nums_array = []
             @saves_count = 0
-            num = 0
             for save in @saves do 
                 @saves_count = @saves_count + 1
-                puts "#{num} - #{save}"
+                puts "#{@saves_count} - #{save}"
             end
         end
 
