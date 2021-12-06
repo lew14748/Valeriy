@@ -41,6 +41,7 @@ module AppStates
         end
 
         def wrong_state
+            io_adapter.clear
             io_adapter.write "Try choosing correct options!!"
             @context.repeat_state
         end
