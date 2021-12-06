@@ -1,7 +1,5 @@
 require './'
 
 class Saver
-  def save 
-  
-  end
+  def save; end
 end

@@ -1,7 +1,4 @@
-require './'
 
 class Loader
-  def load
-
-  end
+  def load; end
 end

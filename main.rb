@@ -1,3 +1,6 @@
-require_relative './lib/application'
+require_relative 'lib/states/welcome'
+require_relative 'lib/context'
 
-Application.new.run
+context = Context.new
+context.initialise (
+    AppStates::Welcome.new)
