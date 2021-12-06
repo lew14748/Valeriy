@@ -4,6 +4,7 @@ module AppStates
   class Exit < BaseState
     @available_transitions = nil
     def render
+      io_adapter.clear
       io_adapter.write 'Bye, have beautiful time!!'
     end
 

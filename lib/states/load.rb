@@ -7,7 +7,8 @@ module AppStates
         end
 
         def render
-            io_adapter.write 'you are in loading state'
+          io_adapter.clear
+          io_adapter.write 'you are in loading state'
         end
     end
 end
