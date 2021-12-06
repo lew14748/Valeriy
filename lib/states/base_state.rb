@@ -1,4 +1,5 @@
 require_relative '../io_adapter'
+
 module AppStates
   class BaseState
     attr_accessor :context
