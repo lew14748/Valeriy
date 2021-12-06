@@ -5,23 +5,21 @@ class Menu
     { title: 'Load', command: 'load', action: :load },
     { title: 'Exit', command: 'exit', action: :exit }
   ].freeze
-  
-  def initialise_custom_menu menu_rows
+
+  def initialise_custom_menu(menu_rows)
     @menu_rows = menu_rows
   end
 
-  def initialise_custom_main_menu  row
+  def initialise_custom_main_menu(row)
     options = MAIN_MENU_OPTIONS.clone
-    @menu_rows = options.find { |option| row.to_s.include? option[:action].to_s}
-
+    @menu_rows = options.find { |option| row.to_s.include? option[:action].to_s }
   end
 
   def initialise_main_menu
-    @menu_rows= MAIN_MENU_OPTIONS.clone
+    @menu_rows = MAIN_MENU_OPTIONS.clone
     @menu_rows
   end
 
-  
   def render_exit_menu
     io_adapter.write '|' + @menu_rows[:title] + '[' + @menu_rows[:command] + ']|'
   end
@@ -33,40 +31,36 @@ class Menu
   end
 
   def render_vertical
-    @menu_rows.each_with_index { |menu_row, i| io_adapter.write "[#{menu_row[:command]}]#{menu_row[:title]}"}
+    @menu_rows.each_with_index { |menu_row, _i| io_adapter.write "[#{menu_row[:command]}]#{menu_row[:title]}" }
   end
 
-  def number_or_nil string
+  def number_or_nil(string)
     num = string.to_i
     0 if num.to_s == string
   end
 
+  def handle_start_menu_input; end
 
-def handle_start_menu_input 
-
-end
   def handle_main_menu_input(input)
     option = nil
     puts @menu_row
-    if @menu_rows.kind_of?(Array)
+    if @menu_rows.is_a?(Array)
       options = @menu_rows.select { |option| option[:action] }
       option = options.find { |option| option == input }
       puts 'rows'
-      return option
-    elsif
-      if input.to_s == @menu_rows[:action].to_s
-        return @menu_rows[:action].to_s
+      option
+    elsif if input.to_s == @menu_rows[:action].to_s
+      return @menu_rows[:action].to_s 
+      nil
       end
-      return nil
     end
   end
 
-  def handle_game_menu_input number
-    if( (number.to_i) > 2 || (number.to_i) < 1 || number_or_nil(number.to_i) == 0)
-      return nil
-    end
-     option = @menu_rows.find { |menu_row| menu_row[:command] == number}  
-     return option[:action]
+  def handle_game_menu_input(number)
+    return nil if (number.to_i) > 2 || (number.to_i) < 1 || number_or_nil(number.to_i) == 0
+
+    option = @menu_rows.find { |menu_row| menu_row[:command] == number }
+    option[:action]
   end
 
   def io_adapter

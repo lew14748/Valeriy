@@ -46,4 +46,5 @@ class Valera
         @money_border_checker = BorderChecker.new 0, 10000
         @fun_border_checker = BorderChecker.new -10, 10
       end
+
 end
