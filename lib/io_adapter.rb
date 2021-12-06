@@ -10,4 +10,8 @@ class IOAdapter
   def read
     gets.chomp
   end
+
+  def clear
+    system 'clear'
+  end
 end
