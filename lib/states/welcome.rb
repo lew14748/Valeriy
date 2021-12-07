@@ -6,6 +6,9 @@ require_relative 'exit'
 require_relative '../context'
 require_relative '../modules/str_to_method_name'
 require_relative '../loader'
+require_relative '../valera'
+require_relative '../action'
+
 module AppStates
   class Welcome < BaseState
     attr_accessor :start_menu, :utils_menu
