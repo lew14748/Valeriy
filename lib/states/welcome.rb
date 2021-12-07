@@ -18,6 +18,7 @@ module AppStates
       start_menu.render_vertical
       io_adapter.write '---' * 14
       utils_menu.render_exit_menu
+      #Action.new(@context.actions[1], @context.valera).do_action
     end
 
     def run

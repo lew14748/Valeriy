@@ -1,14 +1,11 @@
 require_relative 'valera'
 
 class Action
-    attr_reader :action, :valera, :field, :value, :operator
+    attr_reader :action, :valera
 
     def initialize action, valera
         @action = action
         @valera = valera
-        @field = @action['conds'][0]['field']
-        @value = @action['conds'][0]['value']
-        @operator = @action['conds'][0]['operator']
     end
 
     def do_action
@@ -20,7 +17,7 @@ class Action
           field_effect = @action['effects'][i]['field']
           operator_effect = @action['effects'][i]['operator']
           value_effect = @action['effects'][i]['value']
-          @valera.send "#{field_effect}=", change_value(@valera.send(field), operator_effect, value_effect)
+          @valera.send "#{field_effect}=", change_value(@valera.send(field_effect), operator_effect, value_effect)
         end
     end
 
@@ -34,14 +31,20 @@ class Action
     end
 
     def conds_correct?
-      case @operator
-      when '='
-          @valera.send(@field) == @value
-      when '>'
-          @valera.send(@field) > @value
-      when '<'
-        @valera.send(@field) < @value
+      for i in (0...@action['conds'].size) do
+        field = @action['conds'][i]['field']
+        value = @action['conds'][i]['value']
+        operator = @action['conds'][i]['operator']
+        case operator
+        when '='
+            check = (@valera.send(field) == value)
+        when '>'
+          check = (@valera.send(field) > value)
+        when '<'
+          check = (@valera.send(field) < value)
+        end
+        return false if (!check)
       end
+      check
     end
-
 end
