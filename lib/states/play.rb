@@ -24,15 +24,19 @@ module AppStates
 
     def render_valera
       io_adapter.write '---' * 14
-      io_adapter.write 'Valera:'
-      io_adapter.write "money = #{@context.valera.money}"
-      io_adapter.write "health = #{@context.valera.health}"
+      io_adapter.write 'Valera stats:'
+      io_adapter.write "Money = #{@context.valera.money}"
+      io_adapter.write "Health = #{@context.valera.health}"
+      io_adapter.write "Mana = #{@context.valera.mana}"
+      io_adapter.write "Fun = #{@context.valera.fun}"
+      io_adapter.write "Fatigue = #{@context.valera.fatigue}"
       io_adapter.write '---' * 14
     end
 
     def actions_menu
       menu = Array.new(@context.actions.size) { Hash.new }
       menu.each_with_index { |action, i| 
+        # conds_correct?
         menu[i][:title] = "#{@context.actions[i]['before_text']}"
         menu[i][:command] = "#{i + 1}"
         menu[i][:action] = i

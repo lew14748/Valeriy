@@ -5,7 +5,7 @@ module AppStates
     @available_transitions = nil
     def render
       io_adapter.clear
-      io_adapter.write 'Bye, have beautiful time!!'
+      io_adapter.write 'Bye, have a beautiful time!!'
     end
 
     def run
