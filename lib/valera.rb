@@ -38,7 +38,6 @@ class Valera
 
   def init_border_checkers
     @default_border_checker = BorderChecker.new 0, 100
-    @money_border_checker = BorderChecker.new 0, 10_000
     @fun_border_checker = BorderChecker.new(-10, 10)
   end
 end

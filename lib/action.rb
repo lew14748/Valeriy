@@ -45,6 +45,6 @@ class Action
       end
       return false unless check
     end
-    check
+    true
   end
 end

@@ -11,4 +11,5 @@ module AppStates
       save_process.take_number_of_save
       context.transition_to_state AppStates::Welcome.new # change to play
     end
+  end
 end
