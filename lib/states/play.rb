@@ -61,18 +61,18 @@ module AppStates
 
     def actions_menu
       @actions_menu ||= Menu.new
-      @actions_menu.initialise_custom_menu menu_from_actions
+      @actions_menu.initialise_custom_menu fill_menu_by_actions
       @actions_menu
     end
 
-    def menu_from_actions
+    def fill_menu_by_actions
       menu = Array.new(@context.actions.size) { {} }
-      menu.each_with_index do |_action, i|
+      (0...menu.size).each do |i|
         # conds_correct?
         menu[i][:title] = (@context.actions[i]['before_text']).to_s
         menu[i][:command] = (i + 1).to_s
         menu[i][:action] = i
-        # description + number
+        # description + serial number
       end
       menu
     end
