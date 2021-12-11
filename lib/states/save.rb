@@ -8,7 +8,7 @@ module AppStates
       save_process.find_saves
       # if find saves = nil then MENU create new or go back to the game
       #continue game
-      save_process.get_number_of_save
+      save_process.take_number_of_save
       context.transition_to_state AppStates::Welcome.new # change to play
     end
 end

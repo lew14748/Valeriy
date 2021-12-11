@@ -42,7 +42,7 @@ fatigue = #{valera.fatigue}"
     IOAdapter.instance
   end
 
-  def get_number_of_save
+  def take_number_of_save
     num = io_adapter.read
     (valid? (num)) ? (num.to_i - 1) : 0
   end
