@@ -1,7 +1,8 @@
 require_relative 'border_checker'
 
 class Valera 
-    attr_reader :money, :health, :fun, :mana, :fatigue
+    attr_accessor :money
+    attr_reader :health, :fun, :mana, :fatigue
 
     def initialize(health: 100, mana: 0, fun: 0, money: 0, fatigue: 0)
         init_border_checkers
@@ -15,12 +16,6 @@ class Valera
     
       def dead?
         health <= 0 || fun <= -10
-      end
-    
-      def money=(val)
-        check_result = @money_border_checker.check (val)
-        @money = check_result[0]
-        self.money = money - check_result[1] if check_result[1].positive?
       end
 
       def mana=(val)
