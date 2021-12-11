@@ -36,7 +36,6 @@ module AppStates
     end
 
     def load
-      io_adapter.write 'here must be some saving procs'
       @context.transition_to_state(AppStates::Load.new)
     end
 
