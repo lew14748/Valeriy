@@ -6,12 +6,10 @@ module AppStates
       load_process = Loader.new
       render
       load_process.find_save_folder
-      if load_process.find_saves == nil
-        context.transition_to_state AppStates::Welcome.new
-      end
+      context.transition_to_state AppStates::Welcome.new if load_process.find_saves.nil?
       # choose at menu
-        # go to welcome
-        # choose save
+      # go to welcome
+      # choose save
       load_process.load_save load_process.take_number_of_save
       context.transition_to_state AppStates::Welcome.new
     end

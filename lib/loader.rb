@@ -3,9 +3,7 @@ require_relative './states/base_state'
 require_relative './context'
 class Loader
   def find_save_folder
-    if !File.directory?('saves')
-      Dir.mkdir('saves')
-    end
+    Dir.mkdir('saves') unless File.directory?('saves')
   end
 
   def find_saves
@@ -28,12 +26,12 @@ class Loader
 
   def load_save(save_number)
     @load_file = @saves[save_number]
-    #insert to valera stats from file
+    # insert to valera stats from file
   end
 
   def take_number_of_save
     num = io_adapter.read
-    (valid? (num)) ? (num.to_i - 1) : 0
+    valid?(num) ? (num.to_i - 1) : 0
   end
 
   def valid?(number)

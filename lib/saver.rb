@@ -2,13 +2,11 @@ require_relative './io_adapter'
 
 class Saver
   def find_save_folder
-    if !File.directory?("saves")
-      Dir.mkdir("saves")
-    end
+    Dir.mkdir('saves') unless File.directory?('saves')
   end
 
   def find_saves
-    @saves = Dir.glob("saves/*.yml")
+    @saves = Dir.glob('saves/*.yml')
     if @saves.any?
       io_adapter.write 'You can rewrite your save or create new'
       show_saves @saves
@@ -18,7 +16,7 @@ class Saver
     end
   end
 
-  def show_saves saves
+  def show_saves(_saves)
     @saves_count = 0
     @saves.each do |save|
       @saves_count += 1
@@ -26,16 +24,16 @@ class Saver
     end
   end
 
-  def saver valera, name_of_save
-    @save_content = 
-"Valera:
+  def saver(valera, name_of_save)
+    @save_content =
+      "Valera:
 -
 health = #{valera.health}
 mana = #{valera.mana}
 fun = #{valera.fun}
 money = #{valera.money}
 fatigue = #{valera.fatigue}"
-    File.open("saves/#{name_of_save}.yml", "w") { |file| file.write(@save_content) }
+    File.open("saves/#{name_of_save}.yml", 'w') { |file| file.write(@save_content) }
   end
 
   def io_adapter
@@ -44,7 +42,7 @@ fatigue = #{valera.fatigue}"
 
   def take_number_of_save
     num = io_adapter.read
-    (valid? (num)) ? (num.to_i - 1) : 0
+    valid?(num) ? (num.to_i - 1) : 0
   end
 
   def valid?(number)

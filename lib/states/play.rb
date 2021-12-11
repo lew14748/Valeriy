@@ -6,7 +6,7 @@ require_relative 'load'
 module AppStates
   class Play < BaseState
     def run
-      until @context.valera.dead? do
+      until @context.valera.dead?
         render
         action = check_user_input
         private_methods.include?(action) ? send(action) : action(action)
@@ -34,13 +34,13 @@ module AppStates
     end
 
     def actions_menu
-      menu = Array.new(@context.actions.size) { Hash.new }
-      menu.each_with_index { |action, i| 
+      menu = Array.new(@context.actions.size) { {} }
+      menu.each_with_index do |_action, i|
         # conds_correct?
-        menu[i][:title] = "#{@context.actions[i]['before_text']}"
-        menu[i][:command] = "#{i + 1}"
+        menu[i][:title] = (@context.actions[i]['before_text']).to_s
+        menu[i][:command] = (i + 1).to_s
         menu[i][:action] = i
-      }
+      end
       @actions_menu ||= Menu.new
       @actions_menu.initialise_custom_menu menu
       @actions_menu
@@ -65,6 +65,7 @@ module AppStates
     end
 
     private
+
     def load
       io_adapter.write 'You are in loading state'
       @context.transition_to_state(AppStates::Load.new)
