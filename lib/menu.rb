@@ -1,5 +1,8 @@
 require_relative './io_adapter'
+require_relative './modules/number_or_nil'
+
 class Menu
+  include NumberOrNil
   MAIN_MENU_OPTIONS = [
     { title: 'Save', command: 'save', action: :save },
     { title: 'Load', command: 'load', action: :load },
@@ -12,16 +15,12 @@ class Menu
 
   def initialise_custom_main_menu(row)
     options = MAIN_MENU_OPTIONS.clone
-    @menu_rows = options.find { |option| row.to_s.include? option[:action].to_s }
+    @menu_rows = options.select { |option| row == option[:action] }
   end
 
   def initialise_main_menu
     @menu_rows = MAIN_MENU_OPTIONS.clone
     @menu_rows
-  end
-
-  def render_exit_menu
-    io_adapter.write '|' + @menu_rows[:title] + '[' + @menu_rows[:command] + ']|'
   end
 
   def render_horizontal
@@ -34,32 +33,18 @@ class Menu
     @menu_rows.each_with_index { |menu_row, _i| io_adapter.write "[#{menu_row[:command]}]#{menu_row[:title]}" }
   end
 
-  def number_or_nil(string)
-    num = string.to_i
-    0 if num.to_s == string
-  end
-
   def handle_start_menu_input; end
 
   def handle_main_menu_input(input)
     option = nil
-    puts @menu_row
-    if @menu_rows.is_a?(Array)
-      options = @menu_rows.select { |option| option[:action] }
-      option = options.find { |option| option == input }
-      puts 'rows'
-      option
-    elsif if input.to_s == @menu_rows[:action].to_s
-      return @menu_rows[:action].to_s 
-      nil
-      end
-    end
+    option = @menu_rows.find { |option| option[:command].to_s == input }
+    option.nil? ? nil : option[:action]
   end
 
   def handle_game_menu_input(number)
-    return nil if (number.to_i) > 2 || (number.to_i) < 1 || number_or_nil(number.to_i) == 0
+    return nil if !number.to_i.between?(1, 2) || (number_or_nil(number.to_i)) == 0
 
-    option = @menu_rows.find { |menu_row| menu_row[:command] == number }
+    option = @menu_rows.find { |menu_row| menu_row[:command].to_s == number.to_s }
     option[:action]
   end
 
