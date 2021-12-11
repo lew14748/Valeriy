@@ -27,16 +27,12 @@ module AppStates
     def render_valera
       io_adapter.write '---' * 14
       io_adapter.write 'Valera stats:'
-      show_stats
-      io_adapter.write '---' * 14
-    end
-
-    def show_stats
       show_money
       show_health
       show_mana
       show_fun
       show_fatigue
+      io_adapter.write '---' * 14
     end
 
     def show_money
@@ -61,20 +57,31 @@ module AppStates
 
     def actions_menu
       @actions_menu ||= Menu.new
-      @actions_menu.initialise_custom_menu fill_menu_by_actions
+      @menu = Array.new(@context.actions.size) { {} }
+      @actions_menu.initialise_custom_menu(fill_menu_by_actions)
       @actions_menu
     end
 
     def fill_menu_by_actions
-      menu = Array.new(@context.actions.size) { {} }
-      (0...menu.size).each do |i|
-        # conds_correct?
-        menu[i][:title] = (@context.actions[i]['before_text']).to_s
-        menu[i][:command] = (i + 1).to_s
-        menu[i][:action] = i
-        # description + serial number
+      serial_number = 1
+      (0...@menu.size).each do |i|
+        next unless conds_correct?(i)
+
+        add_in_menu(i, serial_number)
+        serial_number += 1
       end
-      menu
+      @menu.reject!(&:empty?)
+      @menu
+    end
+
+    def conds_correct?(number)
+      Action.new(@context.actions[number], @context.valera).conds_correct?
+    end
+
+    def add_in_menu(action_number, serial_number)
+      @menu[serial_number - 1][:title] = (@context.actions[action_number]['before_text']).to_s
+      @menu[serial_number - 1][:command] = serial_number.to_s
+      @menu[serial_number - 1][:action] = action_number
     end
 
     def check_user_input
