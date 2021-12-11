@@ -6,6 +6,9 @@ require_relative 'exit'
 require_relative '../context'
 require_relative '../modules/str_to_method_name'
 require_relative '../loader'
+require_relative '../valera'
+require_relative '../action'
+
 module AppStates
   class Welcome < BaseState
     attr_accessor :start_menu, :utils_menu
@@ -14,7 +17,8 @@ module AppStates
       io_adapter.write 'incredible life of somebody called Valeriy'
       start_menu.render_vertical
       io_adapter.write '---' * 14
-      utils_menu.render_exit_menu
+      utils_menu.render_horizontal
+      # Action.new(@context.actions[1], @context.valera).do_action
     end
 
     def run
@@ -57,11 +61,11 @@ module AppStates
     def check_user_input
       input = io_adapter.read
       input.downcase
-      state1 = @utils_menu.handle_main_menu_input(input.to_sym).to_s
-      state2 = @start_menu.handle_game_menu_input(input).to_s
-      if !state1.empty?
+      state1 = @utils_menu.handle_main_menu_input(input)
+      state2 = @start_menu.handle_game_menu_input(input)
+      if !state1.nil?
         state1
-      elsif !state2.empty?
+      elsif !state2.nil?
         state2
       else
         :wrong_state

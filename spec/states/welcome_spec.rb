@@ -1,4 +1,4 @@
-#require './lib/actions'
+# require './lib/actions'
 require '../../lib/context'
 require '../../lib/states/welcome'
 require '../../lib/states/exit'
