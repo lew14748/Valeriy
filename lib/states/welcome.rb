@@ -11,14 +11,11 @@ require_relative '../action'
 
 module AppStates
   class Welcome < BaseState
-    attr_accessor :start_menu, :utils_menu
-
     def render
       io_adapter.write 'incredible life of somebody called Valeriy'
       start_menu.render_vertical
       io_adapter.write '---' * 14
       utils_menu.render_horizontal
-      # Action.new(@context.actions[1], @context.valera).do_action
     end
 
     def run

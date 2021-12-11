@@ -36,8 +36,6 @@ class Action
       value = @action['conds'][i]['value']
       operator = @action['conds'][i]['operator']
       case operator
-      when '='
-        check = (@valera.send(field) == value)
       when '>'
         check = (@valera.send(field) > value)
       when '<'
