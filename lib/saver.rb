@@ -26,13 +26,12 @@ class Saver
 
   def save_to_file(valera, number_of_save)
     @save_content =
-      "Valera:
--
-health = #{valera.health}
-mana = #{valera.mana}
-fun = #{valera.fun}
-money = #{valera.money}
-fatigue = #{valera.fatigue}"
+"-
+  health: #{valera.health}
+  mana: #{valera.mana}
+  fun: #{valera.fun}
+  money: #{valera.money}
+  fatigue: #{valera.fatigue}"
     File.open("saves/save#{number_of_save}.yml", 'w') { |file| file.write(@save_content) }
   end
 
