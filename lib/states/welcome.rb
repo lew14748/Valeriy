@@ -12,6 +12,7 @@ require_relative '../action'
 module AppStates
   class Welcome < BaseState
     def render
+      io_adapter.clear
       io_adapter.write 'incredible life of somebody called Valeriy'
       start_menu.render_vertical
       io_adapter.write '---' * 14
@@ -43,6 +44,7 @@ module AppStates
     def wrong_state
       # io_adapter.clear
       io_adapter.write 'Try choosing correct options!!'
+      sleep 1
       @context.repeat_state
     end
 

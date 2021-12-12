@@ -3,7 +3,7 @@ module AppStates
     def render
       io_adapter.clear
       io_adapter.write 'You lose'
-      io_adapter.write '---' * 14
+      sleep 1
     end
 
     def run
