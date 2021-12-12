@@ -42,8 +42,7 @@ class Menu
   end
 
   def handle_game_menu_input(number)
-    return nil if !number.to_i.between?(1, 2) || number_or_nil(number.to_i) == 0
-
+    return nil if !number.to_i.between?(1, 2) || number_or_nil(number.to_i) == 0 || number.to_i > @menu_rows.size
     option = @menu_rows.find { |menu_row| menu_row[:command].to_s == number.to_s }
     option[:action]
   end
