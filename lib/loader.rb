@@ -1,6 +1,7 @@
 require_relative './io_adapter'
 require_relative './states/base_state'
 require_relative './context'
+require 'yaml'
 class Loader
   def find_save_folder
     Dir.mkdir('saves') unless File.directory?('saves')
@@ -9,33 +10,35 @@ class Loader
   def find_saves
     @saves = Dir.glob('saves/*.yml')
     if @saves.any?
-      show_saves
+      io_adapter.write 'Choose slot for loading'
     else
-      io_adapter.write 'You have not any saves'
-      nil
+      (1..9).each do |i|
+        File.open("saves/save#{i}.yml", 'w') { |file| file.write('') }
+      end
     end
+    show_saves
   end
 
   def show_saves
-    @saves_count = 0
-    @saves.each do |save|
-      @saves_count += 1
-      puts "#{@saves_count} - #{save}"
+    (1..9).each do |i|
+      io_adapter.write "[#{i}] Save #{i}"
     end
+    io_adapter.write '[0] Menu'
   end
 
-  def load_save(save_number)
-    @load_file = @saves[save_number]
-    # insert to valera stats from file
+  def load_save(save_number)  
+    @load_file = YAML.load_file("saves/save#{save_number}.yml")
+    return nil if @load_file == false
+    @load_file
   end
 
   def take_number_of_save
     num = io_adapter.read
-    valid?(num) ? (num.to_i - 1) : 0
+    valid?(num) ? (num.to_i) : 0
   end
 
   def valid?(number)
-    return true if (number.to_i.is_a? Integer) && number.to_i <= @saves_count && number.to_i >= 1
+    return true if (number.to_i.is_a? Integer) && number.to_i <= 9 && number.to_i >= 1
 
     false
   end
