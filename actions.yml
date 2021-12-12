@@ -207,6 +207,10 @@
       field: fatigue
       operator: '<'
       value: 30
+    - 
+      field: fun
+      operator: '<'
+      value: 2
   effects:
     -
       field: fun
