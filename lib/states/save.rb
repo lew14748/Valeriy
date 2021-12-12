@@ -3,13 +3,12 @@ require_relative '../saver'
 module AppStates
   class Save < BaseState
     def run
+      io_adapter.clear
       save_process = Saver.new
-      save_process.find_save_folder
+      save_process.check_save_folder
       save_process.find_saves
-      # if find saves = nil then MENU create new or go back to the game
-      # continue game
-      save_process.take_number_of_save
-      context.transition_to_state AppStates::Welcome.new # change to play
+      choice = save_process.take_number_of_save
+      save_process.save_to_file(@context.valera, choice) if choice != 0
     end
   end
 end

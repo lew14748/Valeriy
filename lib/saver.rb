@@ -1,30 +1,30 @@
 require_relative './io_adapter'
 
 class Saver
-  def find_save_folder
+  def check_save_folder
     Dir.mkdir('saves') unless File.directory?('saves')
   end
 
   def find_saves
     @saves = Dir.glob('saves/*.yml')
     if @saves.any?
-      io_adapter.write 'You can rewrite your save or create new'
-      show_saves @saves
+      io_adapter.write 'Choose slot for saving'
     else
-      io_adapter.write 'You have not any saves, you can create new one'
-      nil
+      (1..9).each do |i|
+        File.open("saves/save#{i}.yml", 'w') { |file| file.write('') }
+      end
     end
+    show_saves
   end
 
-  def show_saves(_saves)
-    @saves_count = 0
-    @saves.each do |save|
-      @saves_count += 1
-      puts "#{@saves_count} - #{save}"
+  def show_saves
+    (1..9).each do |i|
+      io_adapter.write "[#{i}] Save #{i}"
     end
+    io_adapter.write '[0] To continue play'
   end
 
-  def saver(valera, name_of_save)
+  def save_to_file(valera, number_of_save)
     @save_content =
       "Valera:
 -
@@ -33,7 +33,7 @@ mana = #{valera.mana}
 fun = #{valera.fun}
 money = #{valera.money}
 fatigue = #{valera.fatigue}"
-    File.open("saves/#{name_of_save}.yml", 'w') { |file| file.write(@save_content) }
+    File.open("saves/save#{number_of_save}.yml", 'w') { |file| file.write(@save_content) }
   end
 
   def io_adapter
@@ -42,11 +42,11 @@ fatigue = #{valera.fatigue}"
 
   def take_number_of_save
     num = io_adapter.read
-    valid?(num) ? (num.to_i - 1) : 0
+    valid?(num) ? num.to_i : 0
   end
 
   def valid?(number)
-    return true if (number.to_i.is_a? Integer) && number.to_i <= @saves_count && number.to_i >= 1
+    return true if (number.to_i.is_a? Integer) && number.to_i <= 9 && number.to_i >= 1
 
     false
   end
