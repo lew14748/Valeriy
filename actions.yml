@@ -19,6 +19,10 @@
       field: fun
       operator: '+'
       value: 20
+    -
+      field: health
+      operator: '-'
+      value: 5
 -
   before_text: Working
   after_text: Office work is not for Valery
@@ -26,11 +30,15 @@
     -
       field: fatigue
       operator: '<'
-      value: 20
+      value: 60
     -
       field: mana
       operator: '<'
       value: 10
+    -
+      field: health
+      operator: '>'
+      value: 90
   effects:
     -
       field: money
@@ -40,5 +48,188 @@
       field: fun
       operator: '-'
       value: 1
-
-
+    -
+      field: fatigue
+      operator: '+'
+      value: 20
+    -
+      field: health
+      operator: '-'
+      value: 10
+-
+  before_text: Sleeping
+  after_text: After sleep Valera is lazy
+  conds:
+    -
+      field: fatigue
+      operator: '>'
+      value: 50
+  effects:
+    -
+      field: mana
+      operator: '-'
+      value: 10
+    -
+      field: health
+      operator: '+'
+      value: 20
+    -
+      field: fatigue
+      operator: '-'
+      value: 20
+    -
+      field: fun
+      operator: '+'
+      value: 5
+-
+  before_text: Playing games
+  after_text: GTA 6 hasn't been released yet
+  conds:
+    -
+      field: fatigue
+      operator: '>'
+      value: 10
+    -
+      field: fun
+      operator: '>'
+      value: 0
+  effects:
+    -
+      field: fatigue
+      operator: '-'
+      value: 10
+    -
+      field: fun
+      operator: '+'
+      value: 2
+-
+  before_text: Take a pill
+  after_text: This was my last party
+  conds:
+    - 
+      field: mana
+      operator: '>'
+      value: 0
+    -
+      field: money
+      operator: '>'
+      value: 50
+  effects:
+    -
+      field: money
+      operator: '-'
+      value: 25
+    -
+      field: mana
+      operator: '-'
+      value: 10
+-
+  before_text: Freelance
+  after_text: I only charge in bitcoins
+  conds:
+    -
+      field: fatigue
+      operator: '<'
+      value: 60
+    -
+      field: fun
+      operator: '>'
+      value: 5
+  effects:
+    -
+      field: money
+      operator: '+'
+      value: 75
+    -
+      field: fun
+      operator: '-'
+      value: 1
+    -
+      field: fatigue
+      operator: '+'
+      value: 10
+-
+  before_text: Take a walk in the city at night
+  after_text: Valera caught a cold
+  conds:
+    -
+      field: fatigue
+      operator: '>'
+      value: 30
+    -
+      field: mana
+      operator: '>'
+      value: 0
+  effects:
+    -
+      field: fatigue
+      operator: '-'
+      value: 15
+    -
+      field: health
+      operator: '-'
+      value: 40
+    - 
+      field: mana
+      operator: '-'
+      value: 10
+-
+  before_text: See a doctor
+  after_text: The doctor did his job
+  conds:
+    -
+      field: money
+      operator: '>'
+      value: 100
+    -
+      field: health
+      operator: '<'
+      value: 50
+  effects:
+    -
+      field: money
+      operator: '-'
+      value: 100
+    -
+      field: health
+      operator: '+'
+      value: 100
+    -
+      field: mana
+      operator: '-'
+      value: 100
+    
+-
+  before_text: Reading a book
+  after_text: Great pastime
+  conds:
+    -
+      field: fatigue
+      operator: '<'
+      value: 30
+  effects:
+    -
+      field: fun
+      operator: '+'
+      value: 1
+-
+  before_text: To meet friends
+  after_text: I forgot how boring they are
+  conds:
+    -
+      field: fatigue
+      operator: '<'
+      value: 50
+    -
+      field: fun
+      operator: '<'
+      value: 5
+  effects:
+    -
+      field: fun
+      operator: '+'
+      value: 10
+    -
+      field: health
+      operator: '+'
+      value: 10
