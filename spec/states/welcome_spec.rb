@@ -16,7 +16,7 @@ describe AppStates::Welcome do
   end
   state = AppStates::Welcome.new
   let(:welcome_state) { AppStates::Welcome.new }
-  let(:context) { Context.new.transition_to_state AppStates::Welcome}
+  let(:context) { Context.new.transition_to_state AppStates::Welcome }
   describe '#render' do
     it 'renders correct start menu' do
       welcome_state.render
@@ -38,16 +38,16 @@ describe AppStates::Welcome do
     end
   end
 
-      describe '#play' do 
-      subject {context.state}
-      before do
-        context.state.run
-      end
-      context 'user wanna play and presses "1"' do
-        before{ allow(io_mock).to receive(:read).and_return('1') }
-        it { is_expected.to be_a AppStates::Play}
-      end
+  describe '#play' do
+    subject {context.state}
+    before do
+      context.state.run
     end
+    context 'user wanna play and presses "1"' do
+      before { allow(io_mock).to receive(:read).and_return('1') }
+      it { is_expected.to be_a AppStates::Play}
+    end
+  end
 end
 
 # describe '#next' do

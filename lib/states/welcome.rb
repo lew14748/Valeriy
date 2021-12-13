@@ -12,6 +12,7 @@ require_relative '../action'
 module AppStates
   class Welcome < BaseState
     attr_accessor :context
+
     def render
       io_adapter.clear
       io_adapter.write 'incredible life of somebody called Valeriy'
