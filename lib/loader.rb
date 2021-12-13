@@ -21,20 +21,19 @@ class Loader
 
   def show_saves
     (1..9).each do |i|
-      io_adapter.write "[#{i}] Save #{i}"
+      File.zero?("saves/save#{i}.yml") ? io_adapter.write("[#{i}] Save #{i} - Empty") : io_adapter.write("[#{i}] Save #{i} - Used")
     end
-    io_adapter.write '[0] Menu'
   end
 
-  def load_save(save_number)  
+  def load_save(save_number)
     @load_file = YAML.load_file("saves/save#{save_number}.yml")
     return nil if @load_file == false
+
     @load_file
   end
 
-  def take_number_of_save
-    num = io_adapter.read
-    valid?(num) ? (num.to_i) : 0
+  def take_number_of_save(num)
+    valid?(num) ? num.to_i : 0
   end
 
   def valid?(number)

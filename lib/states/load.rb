@@ -1,5 +1,6 @@
 require_relative 'base_state'
 require_relative '../loader'
+require_relative '../menu'
 module AppStates
   class Load < BaseState
     def run
@@ -7,13 +8,19 @@ module AppStates
       load_process = Loader.new
       load_process.find_save_folder
       load_process.find_saves
-      choice = load_process.take_number_of_save
-      if (choice != 0)  
-        valera = load_process.load_save(choice) 
-        give_stats_to_valera(valera) if (valera != nil)
+      utils_menu.render_horizontal
+      input = io_adapter.read
+      utils_action = utils_menu.handle_main_menu_input(input)
+      return send(utils_action) if utils_action
+
+      choice = load_process.take_number_of_save input
+      puts choice
+      if choice != 0 && !File.zero?("saves/save#{choice}.yml")
+        valera = load_process.load_save(choice)
+        give_stats_to_valera(valera) unless valera.nil?
         @context.transition_to_state(AppStates::Play.new)
       else
-        @context.transition_to_state(AppStates::Welcome.new)
+        send :wrong_state
       end
     end
 
@@ -22,12 +29,41 @@ module AppStates
       io_adapter.write '=== CHOOSE YOUR SAVE ==='
     end
 
-    def give_stats_to_valera valera
+    def give_stats_to_valera(valera)
       @context.valera.money = valera[valera.size - 1]['money']
       @context.valera.fun = valera[valera.size - 1]['fun']
       @context.valera.health = valera[valera.size - 1]['health']
       @context.valera.fatigue = valera[valera.size - 1]['fatigue']
       @context.valera.mana = valera[valera.size - 1]['mana']
+    end
+
+    def utils_menu
+      @utils_menu ||= Menu.new
+      @utils_menu.initialise_custom_menu [
+        { title: 'Back', command: 'back', action: :back },
+        { title: 'Exit', command: 'exit', action: :exit }
+      ]
+      @utils_menu
+    end
+
+    private
+
+    def exit
+      @context.transition_to_state(AppStates::Exit.new)
+    end
+
+    def load
+      @context.transition_to_state(AppStates::Load.new)
+    end
+
+    def back
+      @context.go_to_prev_state
+    end
+
+    def wrong_state
+      io_adapter.write 'Try choosing correct options!!'
+      sleep 1
+      @context.repeat_state
     end
   end
 end

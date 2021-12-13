@@ -17,7 +17,15 @@ class Context
     @state.run
   end
 
+  def go_to_prev_state
+    buf = @state
+    @state = @prev_state
+    @prev_state = @state
+    @state.run
+  end
+
   def transition_to_state(state)
+    @prev_state = @state
     @state = state
     @state.context = self
     @state.run

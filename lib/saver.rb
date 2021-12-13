@@ -26,7 +26,7 @@ class Saver
 
   def save_to_file(valera, number_of_save)
     @save_content =
-"-
+      "-
   health: #{valera.health}
   mana: #{valera.mana}
   fun: #{valera.fun}
@@ -39,8 +39,7 @@ class Saver
     IOAdapter.instance
   end
 
-  def take_number_of_save
-    num = io_adapter.read
+  def take_number_of_save(num)
     valid?(num) ? num.to_i : 0
   end
 

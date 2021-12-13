@@ -28,19 +28,6 @@ module AppStates
       send check_user_input
     end
 
-    def exit
-      @context.transition_to_state(AppStates::Exit.new)
-    end
-
-    def play
-      io_adapter.write 'here must be game i guess'
-      @context.transition_to_state(AppStates::Play.new)
-    end
-
-    def load
-      @context.transition_to_state(AppStates::Load.new)
-    end
-
     def wrong_state
       # io_adapter.clear
       io_adapter.write 'Try choosing correct options!!'
@@ -75,6 +62,21 @@ module AppStates
       @utils_menu ||= Menu.new
       @utils_menu.initialise_custom_main_menu :exit
       @utils_menu
+    end
+
+    private
+
+    def exit
+      @context.transition_to_state(AppStates::Exit.new)
+    end
+
+    def play
+      io_adapter.write 'here must be game i guess'
+      @context.transition_to_state(AppStates::Play.new)
+    end
+
+    def load
+      @context.transition_to_state(AppStates::Load.new)
     end
   end
 end
