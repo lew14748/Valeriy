@@ -30,10 +30,30 @@ module AppStates
     end
 
     def give_stats_to_valera(valera)
+      give_money_to_valera(valera)
+      give_fun_to_valera(valera)
+      give_health_to_valera(valera)
+      give_fatigue_to_valera(valera)
+      give_mana_to_valera(valera)
+    end
+
+    def give_money_to_valera(valera)
       @context.valera.money = valera[valera.size - 1]['money']
+    end
+
+    def give_fun_to_valera(valera)
       @context.valera.fun = valera[valera.size - 1]['fun']
+    end
+
+    def give_health_to_valera(valera)
       @context.valera.health = valera[valera.size - 1]['health']
+    end
+
+    def give_fatigue_to_valera(valera)
       @context.valera.fatigue = valera[valera.size - 1]['fatigue']
+    end
+
+    def give_mana_to_valera(valera)
       @context.valera.mana = valera[valera.size - 1]['mana']
     end
 
