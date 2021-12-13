@@ -12,9 +12,7 @@ module AppStates
 
       choice = @load_process.take_number_of_save input
       if choice != 0 && !File.zero?("saves/save#{choice}.yml")
-        valera = @load_process.load_save(choice)
-        give_stats_to_valera(valera) unless valera.nil?
-        @context.transition_to_state(AppStates::Play.new)
+        load_valera_to_game(choice)
       else
         send :wrong_state
       end
@@ -89,6 +87,12 @@ module AppStates
       io_adapter.write 'Try choosing correct options!!'
       sleep 1
       @context.repeat_state
+    end
+
+    def load_valera_to_game(choice)
+      valera = @load_process.load_save(choice)
+      give_stats_to_valera(valera) unless valera.nil?
+      @context.transition_to_state(AppStates::Play.new)
     end
   end
 end

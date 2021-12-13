@@ -21,7 +21,11 @@ class Loader
 
   def show_saves
     (1..9).each do |i|
-      File.zero?("saves/save#{i}.yml") ? io_adapter.write("[#{i}] Save #{i} - Empty") : io_adapter.write("[#{i}] Save #{i} - Used")
+      if File.zero?("saves/save#{i}.yml")
+        io_adapter.write("[#{i}] Save #{i} - Empty")
+      else
+        io_adapter.write("[#{i}] Save #{i} - Used")
+      end
     end
   end
 
