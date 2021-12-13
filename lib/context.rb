@@ -3,9 +3,10 @@ require_relative 'states/welcome'
 require_relative 'states/base_state'
 require_relative 'valera'
 require_relative 'action'
+require_relative 'action_loader'
 
 class Context
-  attr_accessor :valera, :actions
+  attr_accessor :valera, :actions, :state
 
   def initialize
     @valera = Valera.new
