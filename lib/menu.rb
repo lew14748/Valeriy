@@ -36,8 +36,7 @@ class Menu
   def handle_start_menu_input; end
 
   def handle_main_menu_input(input)
-    option = nil
-    option = @menu_rows.find { |option| option[:command].to_s == input }
+    option = @menu_rows.find { |row| row[:command].to_s == input }
     option.nil? ? nil : option[:action]
   end
 
