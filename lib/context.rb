@@ -7,10 +7,9 @@ require_relative 'action'
 class Context
   attr_accessor :valera, :actions
 
-  def initialize(state)
+  def initialize
     @valera = Valera.new
     @actions = ActionLoader.new('actions.yml').load
-    transition_to_state state
   end
 
   def repeat_state
