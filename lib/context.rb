@@ -18,9 +18,7 @@ class Context
   end
 
   def go_to_prev_state
-    buf = @state
-    @state = @prev_state
-    @prev_state = @state
+    @state, @prev_state = @prev_state, @state
     @state.run
   end
 

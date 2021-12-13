@@ -86,7 +86,6 @@ module AppStates
 
     def check_user_input
       input = io_adapter.read
-      input.downcase
       @utils_menu.handle_main_menu_input(input) || @actions_menu.handle_game_menu_input(input) || :wrong_state
     end
 

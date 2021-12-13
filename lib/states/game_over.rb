@@ -7,7 +7,7 @@ module AppStates
       io_adapter.write 'CHOOSE YOUR DESTINY'
       utils_menu.render_horizontal
       input = io_adapter.read
-      utils_action = utils_action.handle_main_menu_input
+      utils_action = utils_menu.handle_main_menu_input input
       utils_action ? send(utils_action) : send(:wrong_state)
     end
 

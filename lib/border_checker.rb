@@ -6,6 +6,6 @@ class BorderChecker
 
   def check(value)
     result_value = [[value, @lower_border].max, @upper_border].min
-    result = [result_value, value - result_value]
+    [result_value, value - result_value]
   end
 end
