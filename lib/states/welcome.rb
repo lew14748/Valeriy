@@ -30,13 +30,6 @@ module AppStates
       send check_user_input
     end
 
-    def wrong_state
-      # io_adapter.clear
-      io_adapter.write 'Try choosing correct options!!'
-      sleep 1
-      @context.repeat_state
-    end
-
     def start_menu
       @start_menu ||= Menu.new
       @start_menu.initialise_custom_menu [

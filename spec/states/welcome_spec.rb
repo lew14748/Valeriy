@@ -14,7 +14,6 @@ describe AppStates::Welcome do
     allow(io_mock).to receive(:clear)
     allow(io_mock).to receive(:write)
   end
-  state = AppStates::Welcome.new
   let(:welcome_state) { AppStates::Welcome.new }
   let(:context) { Context.new.transition_to_state AppStates::Welcome }
   describe '#render' do
@@ -39,13 +38,13 @@ describe AppStates::Welcome do
   end
 
   describe '#play' do
-    subject {context.state}
+    subject { context.state }
     before do
       context.state.run
     end
     context 'user wanna play and presses "1"' do
       before { allow(io_mock).to receive(:read).and_return('1') }
-      it { is_expected.to be_a AppStates::Play}
+      it { is_expected.to be_a AppStates::Play }
     end
   end
 end
