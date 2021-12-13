@@ -4,13 +4,14 @@ require_relative 'load'
 require_relative '../menu'
 require_relative 'exit'
 require_relative '../context'
-require_relative '../modules/str_to_method_name'
 require_relative '../loader'
 require_relative '../valera'
 require_relative '../action'
 
 module AppStates
   class Welcome < BaseState
+    attr_accessor :context
+
     def render
       io_adapter.clear
       io_adapter.write 'incredible life of somebody called Valeriy'
@@ -28,13 +29,6 @@ module AppStates
       send check_user_input
     end
 
-    def wrong_state
-      # io_adapter.clear
-      io_adapter.write 'Try choosing correct options!!'
-      sleep 1
-      @context.repeat_state
-    end
-
     def start_menu
       @start_menu ||= Menu.new
       @start_menu.initialise_custom_menu [
@@ -46,7 +40,6 @@ module AppStates
 
     def check_user_input
       input = io_adapter.read
-      input.downcase
       state1 = @utils_menu.handle_main_menu_input(input)
       state2 = @start_menu.handle_game_menu_input(input)
       if !state1.nil?
@@ -77,6 +70,13 @@ module AppStates
 
     def load
       @context.transition_to_state(AppStates::Load.new)
+    end
+
+    def wrong_state
+      # io_adapter.clear
+      io_adapter.write 'Try choosing correct options!!'
+      sleep 1
+      @context.repeat_state
     end
   end
 end
