@@ -2,6 +2,8 @@ require_relative './io_adapter'
 require_relative './modules/number_or_nil'
 
 class Menu
+  attr_accessor :menu_rows
+
   include NumberOrNil
   MAIN_MENU_OPTIONS = [
     { title: 'Save', command: 'save', action: :save },
