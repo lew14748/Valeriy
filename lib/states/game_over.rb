@@ -29,7 +29,6 @@ module AppStates
     end
 
     def wrong_state
-      @error = 1
       io_adapter.write 'Try choosing correct options!!'
       sleep 1
     end

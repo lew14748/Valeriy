@@ -13,36 +13,24 @@ class Action
   end
 
   def do_effect
-    (0...@action['effects'].size).each do |i|
-      field_effect = @action['effects'][i]['field']
-      operator_effect = @action['effects'][i]['operator']
-      value_effect = @action['effects'][i]['value']
-      @valera.send "#{field_effect}=", change_value(@valera.send(field_effect), operator_effect, value_effect)
+    (@action['effects']).all? do |effect|
+      field = effect['field']
+      value = effect['value']
+      operator = effect['operator']
+      @valera.send "#{field}=", change_value(@valera.send(field), operator, value)
     end
   end
 
   def change_value(value_before, operator, value)
-    case operator
-    when '+'
-      value_before + value
-    when '-'
-      value_before - value
-    end
+    value_before.send(operator, value)
   end
 
   def conds_correct?
-    (0...@action['conds'].size).each do |i|
-      field = @action['conds'][i]['field']
-      value = @action['conds'][i]['value']
-      operator = @action['conds'][i]['operator']
-      case operator
-      when '>'
-        check = (@valera.send(field) > value)
-      when '<'
-        check = (@valera.send(field) < value)
-      end
-      return false unless check
+    (@action['conds']).all? do |cond|
+      field = cond['field']
+      value = cond['value']
+      operator = cond['operator']
+      @valera.send(field).send(operator, value)
     end
-    true
   end
 end

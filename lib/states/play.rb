@@ -120,7 +120,6 @@ module AppStates
 
     def wrong_state
       io_adapter.write 'Try choosing correct options!!'
-      @error = 1
       sleep 0.5
     end
   end
