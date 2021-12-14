@@ -86,7 +86,6 @@ module AppStates
     def wrong_state
       io_adapter.write 'Try choosing correct options!!'
       sleep 1
-      @context.repeat_state
     end
 
     def load_valera_to_game(choice)

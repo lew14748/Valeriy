@@ -5,6 +5,9 @@ require_relative 'action_loader'
 
 class Application
   def run
-    Context.new.transition_to_state(AppStates::Welcome.new)
+    context = Context.new.transition_to_state(AppStates::Welcome.new)
+    loop do
+      context.state.run
+    end
   end
 end

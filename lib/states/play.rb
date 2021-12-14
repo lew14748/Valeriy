@@ -16,7 +16,7 @@ module AppStates
     end
 
     def render
-      io_adapter.clear
+      #io_adapter.clear
       io_adapter.write 'You are in playing state'
       render_valera
       actions_menu.render_vertical
@@ -104,23 +104,24 @@ module AppStates
     private
 
     def load
-      io_adapter.write 'You are in loading state'
       @context.transition_to_state(AppStates::Load.new)
+      @context.state.run
     end
 
     def save
-      io_adapter.write 'You are in saving state'
       @context.transition_to_state(AppStates::Save.new)
+      @context.state.run
     end
 
     def exit
       @context.transition_to_state(AppStates::Exit.new)
+      @context.state.run
     end
 
     def wrong_state
       io_adapter.write 'Try choosing correct options!!'
+      @error = 1
       sleep 0.5
-      @context.repeat_state
     end
   end
 end

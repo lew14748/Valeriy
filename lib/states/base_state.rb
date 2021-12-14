@@ -2,7 +2,7 @@ require_relative '../io_adapter'
 
 module AppStates
   class BaseState
-    attr_accessor :context
+    attr_accessor :context, :error
 
     def render; end
 

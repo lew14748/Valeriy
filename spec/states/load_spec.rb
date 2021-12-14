@@ -51,4 +51,20 @@ describe AppStates::Load do
       ]
     end
   end
+
+  describe '#run' do
+    context 'when user inputs "10"' do
+      before do
+        @load_state = AppStates::Load.new
+        @context = Context.new.transition_to_state @load_state
+
+        @context.state = @load_state
+        @context.state.run
+        allow(io_mock).to receive(:read).and_return('10')
+      end
+      it 'repeats state' do
+        expect(@context.state).to be_a AppStates::Load
+      end
+    end
+  end
 end

@@ -76,7 +76,6 @@ module AppStates
       # io_adapter.clear
       io_adapter.write 'Try choosing correct options!!'
       sleep 1
-      @context.repeat_state
     end
   end
 end

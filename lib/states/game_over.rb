@@ -6,21 +6,20 @@ module AppStates
       sleep 1
       io_adapter.write 'CHOOSE YOUR DESTINY'
       utils_menu.render_horizontal
-      input = io_adapter.read
-      utils_action = utils_menu.handle_main_menu_input input
-      utils_action ? send(utils_action) : send(:wrong_state)
     end
 
     def run
       render
-      Context.new AppStates::Welcome.new
+      input = io_adapter.read
+      utils_action = utils_menu.handle_main_menu_input input
+      utils_action ? send(utils_action) : send(:wrong_state)
     end
 
     def utils_menu
       @utils_menu ||= Menu.new
       @utils_menu.initialise_custom_menu [
         { title: 'Back to start menu', command: 'back', action: :back },
-        { title: 'Exit', command: 'exit', action: :load }
+        { title: 'Exit', command: 'exit', action: :exit }
       ]
       @utils_menu
     end
@@ -30,10 +29,13 @@ module AppStates
     end
 
     def wrong_state
-      # io_adapter.clear
+      @error = 1
       io_adapter.write 'Try choosing correct options!!'
       sleep 1
-      @context.repeat_state
+    end
+
+    def back
+      @context.go_to_prev_state
     end
   end
 end

@@ -14,6 +14,7 @@ describe AppStates::Welcome do
     allow(io_mock).to receive(:clear)
     allow(io_mock).to receive(:write)
   end
+  state = AppStates::Welcome.new
   let(:welcome_state) { AppStates::Welcome.new }
   let(:context) { Context.new.transition_to_state AppStates::Welcome }
   describe '#render' do
@@ -37,21 +38,38 @@ describe AppStates::Welcome do
     end
   end
 
-  describe '#play' do
-    subject { context.state }
+  describe '#check_user_input' do
+    subject { state.check_user_input }
+
     before do
-      context.state.run
+      state.context = Context.new
+      state.start_menu
+      state.utils_menu
     end
-    context 'user wanna play and presses "1"' do
+
+    context 'when user input "exit"' do
+      before { allow(io_mock).to receive(:read).and_return('exit') }
+      it { is_expected.to eq :exit }
+    end
+
+    context 'when user input "1"' do
       before { allow(io_mock).to receive(:read).and_return('1') }
-      it { is_expected.to be_a AppStates::Play }
+      it { is_expected.to eq :play }
+    end
+
+    context 'when user input "2"' do
+      before { allow(io_mock).to receive(:read).and_return('2') }
+      it { is_expected.to eq :load }
+    end
+
+    context 'when user input "3"' do
+      before { allow(io_mock).to receive(:read).and_return('3') }
+      it { is_expected.to eq :wrong_state }
+    end
+
+    context 'when user input "dfpdf"' do
+      before { allow(io_mock).to receive(:read).and_return('dfpdf') }
+      it { is_expected.to eq :wrong_state }
     end
   end
 end
-
-# describe '#next' do
-# subject { state.next }
-# context 'when user inputs "1"' do
-#   before { allow(io_mock).to receive(:read).and_return('1') }
-#   it { is_expected.to be_a AppStates::Play }
-# end

@@ -26,7 +26,7 @@ module AppStates
       @utils_menu ||= Menu.new
       @utils_menu.initialise_custom_menu [
         { title: 'Back', command: 'back', action: :back },
-        { title: 'Exit', command: 'exit', action: :load }
+        { title: 'Exit', command: 'exit', action: :exit }
       ]
       @utils_menu
     end
@@ -44,7 +44,6 @@ module AppStates
     def wrong_state
       io_adapter.write 'Try choosing correct options!!'
       sleep 1
-      @context.repeat_state
     end
   end
 end

@@ -26,6 +26,5 @@ class Context
     @prev_state = @state
     @state = state
     @state.context = self
-    @state.run
   end
 end
