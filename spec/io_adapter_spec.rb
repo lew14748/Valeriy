@@ -19,7 +19,7 @@ RSpec.describe IOAdapter do
     it 'writes 2' do
       io_mock.write 'Hello'
       expect(io_mock).to have_received(:write).with(
-          'Hello'
+        'Hello'
       )
     end
   end
