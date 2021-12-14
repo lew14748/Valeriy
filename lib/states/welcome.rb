@@ -64,7 +64,6 @@ module AppStates
     end
 
     def play
-      io_adapter.write 'here must be game i guess'
       @context.transition_to_state(AppStates::Play.new)
     end
 
@@ -73,7 +72,7 @@ module AppStates
     end
 
     def wrong_state
-      # io_adapter.clear
+      io_adapter.clear
       io_adapter.write 'Try choosing correct options!!'
       sleep 1
     end

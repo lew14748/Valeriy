@@ -16,7 +16,7 @@ module AppStates
     end
 
     def render
-      #io_adapter.clear
+      io_adapter.clear
       io_adapter.write 'You are in playing state'
       render_valera
       actions_menu.render_vertical
